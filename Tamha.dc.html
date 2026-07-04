@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#dcd9d4;font-family:'Inter','Noto Sans Thai',sans-serif;-webkit-font-smoothing:antialiased}
+  input,textarea,button{font-family:inherit}
+  ::-webkit-scrollbar{width:0;height:0}
+  @keyframes toastUp{from{opacity:0;transform:translate(-50%,16px)}to{opacity:1;transform:translate(-50%,0)}}
+  @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes scrIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+
+<div ref="{{ rootRef }}" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:0">
+<div ref="{{ frameRef }}" style="position:relative;width:min(100vw,430px);height:100vh;max-height:932px;background:#f5f4f2;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.22)">
+
+  <!-- ===================== MAIN SCROLL ===================== -->
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch">
+
+    <!-- ============= HOME / SEARCH ============= -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div style="animation:scrIn .25s ease;padding-bottom:96px">
+      <div style="background:#ffffff;padding:16px 18px 18px;border-bottom:1px solid #ebe9e5">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+          <div style="display:flex;align-items:center;gap:7px;color:#78716c;font-size:13px;font-weight:600">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d62828" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            {{ t.locationLabel }}
+          </div>
+          <button onClick="{{ toggleLang }}" style="border:1px solid #e7e5e4;background:#fafaf9;color:#1c1917;font-size:12px;font-weight:700;padding:6px 11px;border-radius:999px;cursor:pointer">{{ langBtnLabel }}</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:9px;margin-top:14px">
+          <div style="width:34px;height:34px;border-radius:9px;background:#d62828;display:flex;align-items:center;justify-content:center;flex:none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          </div>
+          <div>
+            <div style="font-size:21px;font-weight:800;color:#1c1917;letter-spacing:-.02em;line-height:1.3">{{ t.appName }}</div>
+            <div style="font-size:11.5px;color:#a8a29e;font-weight:600;line-height:1.4">{{ t.tagline }}</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:9px;margin-top:15px;background:#f5f4f2;border:1.5px solid #ebe9e5;border-radius:13px;padding:12px 14px">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#a8a29e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input placeholder="{{ t.searchPh }}" style="border:none;background:transparent;outline:none;font-size:14px;color:#1c1917;width:100%" />
+        </div>
+        <div style="display:flex;gap:8px;margin-top:13px;overflow-x:auto">
+          <button onClick="{{ chip.all }}" style="{{ chipStyles.all }}">{{ t.chipAll }}</button>
+          <button onClick="{{ chip.person }}" style="{{ chipStyles.person }}">{{ t.chipPerson }}</button>
+          <button onClick="{{ chip.item }}" style="{{ chipStyles.item }}">{{ t.chipItem }}</button>
+          <button onClick="{{ chip.found }}" style="{{ chipStyles.found }}">{{ t.chipFound }}</button>
+        </div>
+      </div>
+
+      <div style="padding:16px 18px 0">
+        <!-- hotline 1300 banner -->
+        <div style="background:#fef2f2;border:1.5px solid #fcd2d2;border-radius:15px;padding:15px 16px;display:flex;align-items:center;gap:13px">
+          <div style="width:42px;height:42px;border-radius:11px;background:#d62828;display:flex;align-items:center;justify-content:center;flex:none">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:14px;font-weight:800;color:#1c1917;line-height:1.5">{{ t.hotlineTitle }}</div>
+            <div style="font-size:11.5px;color:#9a3a3a;font-weight:600;line-height:1.6">{{ t.hotlineDesc }}</div>
+          </div>
+          <a href="tel:1300" style="background:#d62828;color:#fff;font-size:13px;font-weight:800;padding:9px 13px;border-radius:10px;text-decoration:none;white-space:nowrap;flex:none">{{ t.callHotline }}</a>
+        </div>
+
+        <!-- nearby header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:22px 0 11px">
+          <div style="font-size:16px;font-weight:800;color:#1c1917;line-height:1.5">{{ t.nearbyTitle }}</div>
+          <button onClick="{{ nav.feed }}" style="border:none;background:none;color:#d62828;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:3px">{{ t.seeAll }}
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d62828" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+
+        <sc-for list="{{ nearby }}" as="p" hint-placeholder-count="3">
+          <div onClick="{{ p.open }}" style="background:#fff;border:1px solid #ebe9e5;border-radius:15px;padding:11px;margin-bottom:11px;display:flex;gap:12px;cursor:pointer">
+            <div style="{{ p.thumbStyle }}" role="img" aria-label="{{ p.photoLabel }}">
+              <sc-if value="{{ p.isPerson }}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#c7c2bb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg></sc-if>
+              <sc-if value="{{ p.isItem }}" hint-placeholder-val="{{ true }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#c7c2bb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L8 6H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-4Z"/><circle cx="12" cy="13" r="3.5"/></svg></sc-if>
+              {{ p.imgEl }}
+            </div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;gap:6px;margin-bottom:5px">
+                <span style="{{ p.statusPill }}">{{ p.statusLabel }}</span>
+                <span style="{{ p.typePill }}">{{ p.typeLabel }}</span>
+              </div>
+              <div style="font-size:14px;font-weight:700;color:#1c1917;line-height:1.5;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">{{ p.title }}</div>
+              <div style="display:flex;align-items:center;gap:5px;margin-top:5px;color:#a8a29e;font-size:11.5px;font-weight:600">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#a8a29e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                {{ p.metaLine }}
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- big CTA -->
+      <div style="padding:8px 18px 0">
+        <button onClick="{{ nav.post }}" style="width:100%;background:#d62828;color:#fff;border:none;border-radius:15px;padding:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 22px rgba(214,40,40,.3)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          <div style="text-align:left">
+            <div style="font-size:15px;font-weight:800;line-height:1.4">{{ t.ctaPost }}</div>
+            <div style="font-size:11px;font-weight:600;opacity:.85;line-height:1.4">{{ t.ctaPostSub }}</div>
+          </div>
+        </button>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ============= FEED ============= -->
+    <sc-if value="{{ isFeed }}" hint-placeholder-val="{{ true }}">
+    <div style="animation:scrIn .25s ease;padding-bottom:96px">
+      <div style="background:#fff;padding:16px 18px 14px;border-bottom:1px solid #ebe9e5;position:sticky;top:0;z-index:5">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:19px;font-weight:800;color:#1c1917;line-height:1.4">{{ t.feedTitle }}</div>
+          <button onClick="{{ toggleLang }}" style="border:1px solid #e7e5e4;background:#fafaf9;color:#1c1917;font-size:12px;font-weight:700;padding:6px 11px;border-radius:999px;cursor:pointer">{{ langBtnLabel }}</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:5px;color:#78716c;font-size:12.5px;font-weight:600">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 1.5"/></svg>
+          {{ feedCountLabel }}
+        </div>
+        <div style="display:flex;gap:8px;margin-top:13px;overflow-x:auto">
+          <button onClick="{{ chip.all }}" style="{{ chipStyles.all }}">{{ t.chipAll }}</button>
+          <button onClick="{{ chip.person }}" style="{{ chipStyles.person }}">{{ t.chipPerson }}</button>
+          <button onClick="{{ chip.item }}" style="{{ chipStyles.item }}">{{ t.chipItem }}</button>
+          <button onClick="{{ chip.found }}" style="{{ chipStyles.found }}">{{ t.chipFound }}</button>
+        </div>
+      </div>
+
+      <div style="padding:14px 18px 0">
+        <sc-if value="{{ feedEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center;padding:48px 20px">
+            <div style="width:64px;height:64px;border-radius:50%;background:#f0eeea;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#a8a29e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+            <div style="font-size:16px;font-weight:800;color:#1c1917;line-height:1.6">{{ t.emptyTitle }}</div>
+            <div style="font-size:13px;color:#a8a29e;font-weight:500;line-height:1.85;margin:8px auto 0;max-width:260px">{{ t.emptyDesc }}</div>
+          </div>
+        </sc-if>
+
+        <sc-for list="{{ feed }}" as="p" hint-placeholder-count="4">
+          <div onClick="{{ p.open }}" style="background:#fff;border:1px solid #ebe9e5;border-radius:16px;overflow:hidden;margin-bottom:13px;cursor:pointer">
+            <div style="{{ p.bannerStyle }}" role="img" aria-label="{{ p.photoLabel }}">
+              <sc-if value="{{ p.isPerson }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#c7c2bb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg></sc-if>
+              <sc-if value="{{ p.isItem }}" hint-placeholder-val="{{ true }}"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c7c2bb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L8 6H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-4Z"/><circle cx="12" cy="13" r="3.5"/></svg></sc-if>
+              {{ p.imgEl }}
+              <span style="position:absolute;bottom:8px;left:10px;font-family:'Inter',monospace;font-size:10px;color:#a8a29e;font-weight:600;background:rgba(255,255,255,.82);padding:2px 7px;border-radius:5px">{{ p.photoLabel }}</span>
+              <span style="position:absolute;top:9px;left:10px;{{ p.statusPill }}">{{ p.statusLabel }}</span>
+              <sc-if value="{{ p.mine }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:9px;right:10px;background:#1c1917;color:#fff;font-size:10.5px;font-weight:700;padding:4px 9px;border-radius:999px">{{ t.mineBadge }}</span></sc-if>
+            </div>
+            <div style="padding:13px 14px 14px">
+              <div style="display:flex;align-items:center;gap:7px;margin-bottom:7px">
+                <span style="{{ p.typePill }}">{{ p.typeLabel }}</span>
+                <span style="color:#c7c2bb;font-size:11px">·</span>
+                <span style="color:#a8a29e;font-size:11.5px;font-weight:600">{{ p.timeLabel }}</span>
+              </div>
+              <div style="font-size:15.5px;font-weight:700;color:#1c1917;line-height:1.55">{{ p.title }}</div>
+              <div style="display:flex;align-items:center;gap:5px;margin-top:8px;color:#78716c;font-size:12.5px;font-weight:600;line-height:1.7">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#78716c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                {{ p.metaLine }}
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ============= POST FORM ============= -->
+    <sc-if value="{{ isPost }}" hint-placeholder-val="{{ true }}">
+    <div style="animation:scrIn .25s ease;padding-bottom:120px">
+      <div style="background:#fff;padding:14px 16px;border-bottom:1px solid #ebe9e5;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:5">
+        <button onClick="{{ nav.feed }}" style="border:none;background:#f5f4f2;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1c1917" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <div style="font-size:17px;font-weight:800;color:#1c1917">{{ t.postTitle }}</div>
+      </div>
+
+      <div style="padding:18px 18px 0">
+        <!-- type segmented -->
+        <div style="font-size:13px;font-weight:700;color:#57534e;margin-bottom:9px">{{ t.fType }}</div>
+        <div style="display:flex;gap:9px;margin-bottom:20px">
+          <button onClick="{{ setTypeItem }}" style="{{ typeItemStyle }}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.3 9 0 4 4v9.4a2 2 0 0 1-1 1.7l-7.5 4.3-7.5-4.3a2 2 0 0 1-1-1.7V8.3Z"/><path d="m3 8 9 5 9-5M12 13v9"/></svg>
+            {{ t.typeItem }}
+          </button>
+          <button onClick="{{ setTypePerson }}" style="{{ typePersonStyle }}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg>
+            {{ t.typePerson }}
+          </button>
+        </div>
+
+        <!-- photo -->
+        <div style="font-size:13px;font-weight:700;color:#57534e;margin-bottom:9px">{{ t.photoLabel }}</div>
+        <button onClick="{{ attachPhoto }}" style="{{ photoZoneStyle }}">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="{{ photoIconColor }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L8 6H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-4Z"/><circle cx="12" cy="13" r="3.5"/></svg>
+          <span style="font-size:13px;font-weight:700;color:{{ photoIconColor }}">{{ photoZoneLabel }}</span>
+          <span style="font-size:11px;color:#a8a29e;font-weight:500">{{ t.photoHint }}</span>
+        </button>
+
+        <!-- title -->
+        <div style="margin-top:20px">
+          <label style="font-size:13px;font-weight:700;color:#57534e;display:block;margin-bottom:8px">{{ t.fTitleL }}</label>
+          <input value="{{ form.title }}" onChange="{{ set.title }}" placeholder="{{ titlePh }}" style="{{ inpStyle.title }}" />
+          <sc-if value="{{ errors.title }}" hint-placeholder-val="{{ false }}"><div style="color:#d62828;font-size:12px;font-weight:600;margin-top:6px">{{ errors.title }}</div></sc-if>
+        </div>
+
+        <!-- person extra -->
+        <sc-if value="{{ isPerson }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:14px;margin-top:16px">
+          <div style="font-size:12.5px;font-weight:800;color:#9a3412;margin-bottom:12px">{{ t.personSection }}</div>
+          <div style="display:flex;gap:10px">
+            <div style="flex:1.6">
+              <label style="font-size:12.5px;font-weight:700;color:#57534e;display:block;margin-bottom:7px">{{ t.fNameL }}</label>
+              <input value="{{ form.name }}" onChange="{{ set.name }}" placeholder="{{ t.fNamePh }}" style="{{ inpStyle.name }}" />
+            </div>
+            <div style="flex:1">
+              <label style="font-size:12.5px;font-weight:700;color:#57534e;display:block;margin-bottom:7px">{{ t.fAgeL }}</label>
+              <input value="{{ form.age }}" onChange="{{ set.age }}" placeholder="{{ t.fAgePh }}" style="background:#fff;border:1.5px solid #fed7aa;border-radius:11px;padding:12px;font-size:14px;color:#1c1917;width:100%;outline:none" />
+            </div>
+          </div>
+          <sc-if value="{{ errors.name }}" hint-placeholder-val="{{ false }}"><div style="color:#d62828;font-size:12px;font-weight:600;margin-top:6px">{{ errors.name }}</div></sc-if>
+          <div style="margin-top:12px">
+            <label style="font-size:12.5px;font-weight:700;color:#57534e;display:block;margin-bottom:7px">{{ t.fClothesL }}</label>
+            <input value="{{ form.clothing }}" onChange="{{ set.clothing }}" placeholder="{{ t.fClothesPh }}" style="background:#fff;border:1.5px solid #fed7aa;border-radius:11px;padding:12px;font-size:14px;color:#1c1917;width:100%;outline:none" />
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:8px;margin-top:12px;color:#9a3412;font-size:11.5px;font-weight:600;line-height:1.7">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d62828" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+            {{ t.hotlineReminder }}
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- area -->
+        <div style="margin-top:18px">
+          <label style="font-size:13px;font-weight:700;color:#57534e;display:block;margin-bottom:8px">{{ t.fAreaL }}</label>
+          <input value="{{ form.area }}" onChange="{{ set.area }}" placeholder="{{ t.fAreaPh }}" style="{{ inpStyle.area }}" />
+          <sc-if value="{{ errors.area }}" hint-placeholder-val="{{ false }}"><div style="color:#d62828;font-size:12px;font-weight:600;margin-top:6px">{{ errors.area }}</div></sc-if>
+        </div>
+
+        <!-- when -->
+        <div style="margin-top:16px">
+          <label style="font-size:13px;font-weight:700;color:#57534e;display:block;margin-bottom:8px">{{ t.fWhenL }}</label>
+          <input value="{{ form.when }}" onChange="{{ set.when }}" placeholder="{{ t.fWhenPh }}" style="background:#fff;border:1.5px solid #e7e5e4;border-radius:12px;padding:13px;font-size:14px;color:#1c1917;width:100%;outline:none" />
+        </div>
+
+        <!-- desc -->
+        <div style="margin-top:16px">
+          <label style="font-size:13px;font-weight:700;color:#57534e;display:block;margin-bottom:8px">{{ t.fDescL }}</label>
+          <textarea value="{{ form.desc }}" onChange="{{ set.desc }}" placeholder="{{ t.fDescPh }}" rows="3" style="background:#fff;border:1.5px solid #e7e5e4;border-radius:12px;padding:13px;font-size:14px;color:#1c1917;width:100%;outline:none;resize:none;line-height:1.85"></textarea>
+        </div>
+
+        <!-- phone -->
+        <div style="margin-top:16px">
+          <label style="font-size:13px;font-weight:700;color:#57534e;display:block;margin-bottom:8px">{{ t.fPhoneL }}</label>
+          <input value="{{ form.phone }}" onChange="{{ set.phone }}" placeholder="{{ t.fPhonePh }}" style="{{ inpStyle.phone }}" />
+          <sc-if value="{{ errors.phone }}" hint-placeholder-val="{{ false }}"><div style="color:#d62828;font-size:12px;font-weight:600;margin-top:6px">{{ errors.phone }}</div></sc-if>
+        </div>
+
+        <!-- consent -->
+        <button onClick="{{ toggleConsent }}" style="display:flex;align-items:flex-start;gap:11px;margin-top:18px;background:none;border:none;text-align:left;cursor:pointer;padding:0;width:100%">
+          <span style="{{ consentBoxStyle }}">
+            <sc-if value="{{ form.consent }}" hint-placeholder-val="{{ false }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></sc-if>
+          </span>
+          <span style="font-size:12.5px;color:#57534e;font-weight:500;line-height:1.75">{{ t.consentText }}</span>
+        </button>
+        <sc-if value="{{ errors.consent }}" hint-placeholder-val="{{ false }}"><div style="color:#d62828;font-size:12px;font-weight:600;margin-top:6px">{{ errors.consent }}</div></sc-if>
+
+        <button onClick="{{ onPublish }}" style="width:100%;background:#d62828;color:#fff;border:none;border-radius:14px;padding:16px;font-size:15px;font-weight:800;cursor:pointer;margin-top:22px;box-shadow:0 8px 22px rgba(214,40,40,.28)">{{ t.publish }}</button>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ============= DETAIL ============= -->
+    <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+    <div style="animation:scrIn .25s ease;padding-bottom:130px">
+      <div style="position:relative;{{ activePost.bannerStyle }};border-radius:0;height:230px">
+        <button onClick="{{ goBack }}" style="position:absolute;top:14px;left:14px;border:none;background:rgba(255,255,255,.92);width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#1c1917" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button onClick="{{ share }}" style="position:absolute;top:14px;right:14px;border:none;background:rgba(255,255,255,.92);width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1c1917" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5 8.6 10.5"/></svg>
+        </button>
+        <sc-if value="{{ activePost.isPerson }}" hint-placeholder-val="{{ false }}"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#c7c2bb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg></sc-if>
+        <sc-if value="{{ activePost.isItem }}" hint-placeholder-val="{{ false }}"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#c7c2bb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)"><path d="M14.5 4h-5L8 6H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-4Z"/><circle cx="12" cy="13" r="3.5"/></svg></sc-if>
+        {{ activePost.imgEl }}
+        <span style="position:absolute;bottom:12px;left:14px;font-family:'Inter',monospace;font-size:11px;color:#a8a29e;font-weight:600;background:rgba(255,255,255,.85);padding:3px 9px;border-radius:6px">{{ activePost.photoLabel }}</span>
+        <sc-if value="{{ activePost.hasImg }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;bottom:12px;right:14px;font-family:'Inter',monospace;font-size:9.5px;color:#78716c;font-weight:600;background:rgba(255,255,255,.8);padding:3px 8px;border-radius:6px">{{ t.imgCredit }}</span></sc-if>
+      </div>
+
+      <div style="background:#f5f4f2;border-radius:22px 22px 0 0;margin-top:-20px;position:relative;padding:20px 18px 0">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px">
+          <span style="{{ activePost.statusPill }}">{{ activePost.statusLabel }}</span>
+          <span style="{{ activePost.typePill }}">{{ activePost.typeLabel }}</span>
+          <sc-if value="{{ activePost.mine }}" hint-placeholder-val="{{ false }}"><span style="background:#1c1917;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px">{{ t.mineBadge }}</span></sc-if>
+        </div>
+        <div style="font-size:21px;font-weight:800;color:#1c1917;line-height:1.5;letter-spacing:-.01em">{{ activePost.title }}</div>
+
+        <!-- meta grid -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:18px">
+          <div style="background:#fff;border:1px solid #ebe9e5;border-radius:13px;padding:12px">
+            <div style="font-size:11px;color:#a8a29e;font-weight:700;margin-bottom:4px">{{ t.lastSeen }}</div>
+            <div style="font-size:13px;color:#1c1917;font-weight:700;line-height:1.6">{{ activePost.lastSeen }}</div>
+          </div>
+          <div style="background:#fff;border:1px solid #ebe9e5;border-radius:13px;padding:12px">
+            <div style="font-size:11px;color:#a8a29e;font-weight:700;margin-bottom:4px">{{ activePost.timeFieldLabel }}</div>
+            <div style="font-size:13px;color:#1c1917;font-weight:700;line-height:1.6">{{ activePost.timeFieldValue }}</div>
+          </div>
+          <div style="background:#fff;border:1px solid #ebe9e5;border-radius:13px;padding:12px">
+            <div style="font-size:11px;color:#a8a29e;font-weight:700;margin-bottom:4px">{{ t.within }}</div>
+            <div style="font-size:13px;color:#1c1917;font-weight:700;line-height:1.6">{{ activePost.distLabel }}</div>
+          </div>
+          <div style="background:#fff;border:1px solid #ebe9e5;border-radius:13px;padding:12px">
+            <div style="font-size:11px;color:#a8a29e;font-weight:700;margin-bottom:4px">{{ t.postedOn }}</div>
+            <div style="font-size:13px;color:#1c1917;font-weight:700;line-height:1.6">{{ activePost.timeLabel }}</div>
+          </div>
+        </div>
+
+        <sc-if value="{{ activePost.reward }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:9px;background:#fffbeb;border:1px solid #fde68a;border-radius:13px;padding:13px;margin-top:12px">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8M2 7h20v5H2zM12 21V7M12 7H8.5a2.5 2.5 0 0 1 0-5C11 2 12 5 12 7ZM12 7h3.5a2.5 2.5 0 0 0 0-5C13 2 12 5 12 7Z"/></svg>
+            <div style="font-size:13.5px;font-weight:800;color:#92400e">{{ t.reward }}: {{ activePost.reward }}</div>
+          </div>
+        </sc-if>
+
+        <!-- description -->
+        <div style="font-size:14.5px;color:#44403c;font-weight:500;line-height:1.95;margin-top:18px">{{ activePost.desc }}</div>
+        <sc-if value="{{ activePost.clothing }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff;border:1px solid #ebe9e5;border-radius:13px;padding:13px;margin-top:12px">
+            <div style="font-size:11px;color:#a8a29e;font-weight:700;margin-bottom:5px">{{ t.fClothesL }}</div>
+            <div style="font-size:13.5px;color:#1c1917;font-weight:600;line-height:1.8">{{ activePost.clothing }}</div>
+          </div>
+        </sc-if>
+
+        <!-- map -->
+        <div style="margin-top:18px">
+          <div style="font-size:13px;font-weight:800;color:#1c1917;margin-bottom:10px">{{ t.mapLabel }}</div>
+          <div style="position:relative;height:140px;border-radius:14px;overflow:hidden;border:1px solid #ebe9e5;background:repeating-linear-gradient(45deg,#eceae6 0 14px,#f3f1ee 14px 28px)">
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-100%)">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="#d62828" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.6" fill="#fff" stroke="none"/></svg>
+            </div>
+            <span style="position:absolute;bottom:10px;left:12px;font-family:'Inter',monospace;font-size:10.5px;color:#78716c;font-weight:600;background:rgba(255,255,255,.85);padding:3px 8px;border-radius:6px">{{ activePost.lastSeen }}</span>
+          </div>
+        </div>
+
+        <!-- hotline card for person -->
+        <sc-if value="{{ activePost.isPerson }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fef2f2;border:1.5px solid #fcd2d2;border-radius:15px;padding:15px;margin-top:16px;display:flex;align-items:center;gap:13px">
+            <div style="width:42px;height:42px;border-radius:11px;background:#d62828;display:flex;align-items:center;justify-content:center;flex:none">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13.5px;font-weight:800;color:#1c1917;line-height:1.5">{{ t.hotlineCardTitle }}</div>
+              <div style="font-size:11.5px;color:#9a3a3a;font-weight:600;line-height:1.6">{{ t.hotlineCardDesc }}</div>
+            </div>
+            <a href="tel:1300" style="background:#d62828;color:#fff;font-size:13px;font-weight:800;padding:9px 13px;border-radius:10px;text-decoration:none;flex:none;white-space:nowrap">1300</a>
+          </div>
+        </sc-if>
+
+        <!-- safety -->
+        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:14px;padding:14px;margin-top:16px">
+          <div style="display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:800;color:#15803d;margin-bottom:9px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+            {{ t.safetyTitle }}
+          </div>
+          <div style="font-size:12.5px;color:#3f6212;font-weight:500;line-height:1.8;margin-bottom:6px">• {{ t.safety1 }}</div>
+          <div style="font-size:12.5px;color:#3f6212;font-weight:500;line-height:1.8">• {{ t.safety2 }}</div>
+        </div>
+      </div>
+
+      <!-- sticky contact bar -->
+      <div style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ebe9e5;padding:12px 16px 14px;display:flex;flex-direction:column;gap:10px">
+        <sc-if value="{{ activePost.canMarkFound }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ markFound }}" style="width:100%;background:#fff;color:#15803d;border:1.5px solid #16a34a;border-radius:12px;padding:11px;font-size:13.5px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            {{ t.markFound }}
+          </button>
+        </sc-if>
+        <div style="display:flex;gap:10px">
+          <button onClick="{{ sighting }}" style="flex:1;background:#1c1917;color:#fff;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            {{ t.sightingCta }}
+          </button>
+          <a href="{{ activePost.telHref }}" style="width:54px;background:#d62828;border-radius:12px;display:flex;align-items:center;justify-content:center;text-decoration:none;flex:none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ============= ALERTS ============= -->
+    <sc-if value="{{ isAlerts }}" hint-placeholder-val="{{ false }}">
+    <div style="animation:scrIn .25s ease;padding-bottom:96px">
+      <div style="background:#fff;padding:16px 18px 14px;border-bottom:1px solid #ebe9e5;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:19px;font-weight:800;color:#1c1917">{{ t.alertsTitle }}</div>
+        <button onClick="{{ toggleLang }}" style="border:1px solid #e7e5e4;background:#fafaf9;color:#1c1917;font-size:12px;font-weight:700;padding:6px 11px;border-radius:999px;cursor:pointer">{{ langBtnLabel }}</button>
+      </div>
+      <div style="padding:14px 16px 0">
+        <sc-for list="{{ alerts }}" as="a" hint-placeholder-count="4">
+          <div onClick="{{ a.open }}" style="display:flex;gap:12px;background:#fff;border:1px solid #ebe9e5;border-radius:14px;padding:13px;margin-bottom:11px;cursor:pointer">
+            <div style="{{ a.iconWrap }}">{{ a.iconEl }}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13.5px;color:#1c1917;font-weight:600;line-height:1.75">{{ a.text }}</div>
+              <div style="font-size:11.5px;color:#a8a29e;font-weight:600;margin-top:5px">{{ a.time }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ============= MINE ============= -->
+    <sc-if value="{{ isMine }}" hint-placeholder-val="{{ false }}">
+    <div style="animation:scrIn .25s ease;padding-bottom:96px">
+      <div style="background:#fff;padding:16px 18px 14px;border-bottom:1px solid #ebe9e5;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:19px;font-weight:800;color:#1c1917">{{ t.mineTitle }}</div>
+        <button onClick="{{ toggleLang }}" style="border:1px solid #e7e5e4;background:#fafaf9;color:#1c1917;font-size:12px;font-weight:700;padding:6px 11px;border-radius:999px;cursor:pointer">{{ langBtnLabel }}</button>
+      </div>
+      <div style="padding:14px 18px 0">
+        <sc-if value="{{ mineEmpty }}" hint-placeholder-val="{{ true }}">
+          <div style="text-align:center;padding:54px 20px">
+            <div style="width:70px;height:70px;border-radius:50%;background:#f0eeea;display:flex;align-items:center;justify-content:center;margin:0 auto 18px">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a8a29e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M9 13l2 2 4-4"/></svg>
+            </div>
+            <div style="font-size:17px;font-weight:800;color:#1c1917;line-height:1.6">{{ t.mineEmptyTitle }}</div>
+            <div style="font-size:13px;color:#a8a29e;font-weight:500;line-height:1.9;margin:9px auto 20px;max-width:270px">{{ t.mineEmptyDesc }}</div>
+            <button onClick="{{ nav.post }}" style="background:#d62828;color:#fff;border:none;border-radius:12px;padding:13px 22px;font-size:14px;font-weight:800;cursor:pointer">{{ t.emptyCta }}</button>
+          </div>
+        </sc-if>
+        <sc-for list="{{ mine }}" as="p" hint-placeholder-count="0">
+          <div onClick="{{ p.open }}" style="background:#fff;border:1px solid #ebe9e5;border-radius:16px;overflow:hidden;margin-bottom:13px;cursor:pointer">
+            <div style="{{ p.bannerStyle }}" role="img" aria-label="{{ p.photoLabel }}">
+              <sc-if value="{{ p.isPerson }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#c7c2bb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg></sc-if>
+              <sc-if value="{{ p.isItem }}" hint-placeholder-val="{{ true }}"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c7c2bb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L8 6H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-4Z"/><circle cx="12" cy="13" r="3.5"/></svg></sc-if>
+              {{ p.imgEl }}
+              <span style="position:absolute;top:9px;left:10px;{{ p.statusPill }}">{{ p.statusLabel }}</span>
+            </div>
+            <div style="padding:13px 14px 14px">
+              <div style="font-size:15px;font-weight:700;color:#1c1917;line-height:1.55">{{ p.title }}</div>
+              <div style="display:flex;align-items:center;gap:5px;margin-top:7px;color:#78716c;font-size:12.5px;font-weight:600;line-height:1.7">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#78716c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                {{ p.metaLine }}
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ============= ERROR / 404 ============= -->
+    <sc-if value="{{ isError }}" hint-placeholder-val="{{ false }}">
+    <div style="animation:fadeIn .25s ease;min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 30px">
+      <div style="width:84px;height:84px;border-radius:50%;background:#fef2f2;display:flex;align-items:center;justify-content:center;margin-bottom:22px">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d62828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+      </div>
+      <div style="font-size:21px;font-weight:800;color:#1c1917;line-height:1.5">{{ t.errTitle }}</div>
+      <div style="font-size:13.5px;color:#a8a29e;font-weight:500;line-height:1.9;margin:10px auto 0;max-width:280px">{{ t.errDesc }}</div>
+      <div style="display:flex;align-items:center;gap:7px;margin-top:18px;background:#fafaf9;border:1px solid #ebe9e5;border-radius:999px;padding:8px 14px;color:#78716c;font-size:12px;font-weight:600">
+        <span style="width:7px;height:7px;border-radius:50%;background:#a8a29e;display:inline-block"></span>
+        {{ t.offlineNote }}
+      </div>
+      <div style="display:flex;gap:10px;margin-top:26px;width:100%;max-width:300px">
+        <button onClick="{{ nav.feed }}" style="flex:1;background:#fff;color:#1c1917;border:1.5px solid #e7e5e4;border-radius:12px;padding:13px;font-size:14px;font-weight:700;cursor:pointer">{{ t.errRetry }}</button>
+        <button onClick="{{ nav.home }}" style="flex:1;background:#d62828;color:#fff;border:none;border-radius:12px;padding:13px;font-size:14px;font-weight:800;cursor:pointer">{{ t.errHome }}</button>
+      </div>
+    </div>
+    </sc-if>
+
+  </div>
+
+  <!-- ===================== BOTTOM NAV ===================== -->
+  <sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
+  <div style="background:#fff;border-top:1px solid #ebe9e5;display:flex;align-items:flex-end;justify-content:space-around;padding:9px 6px 12px;position:relative">
+    <button onClick="{{ nav.home }}" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;padding:4px 0">
+      <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="{{ navColor.home }}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/></svg>
+      <span style="font-size:10.5px;font-weight:700;color:{{ navColor.home }}">{{ t.navHome }}</span>
+    </button>
+    <button onClick="{{ nav.feed }}" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;padding:4px 0">
+      <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="{{ navColor.feed }}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+      <span style="font-size:10.5px;font-weight:700;color:{{ navColor.feed }}">{{ t.navFeed }}</span>
+    </button>
+    <button onClick="{{ nav.post }}" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;padding:0">
+      <span style="width:46px;height:46px;border-radius:15px;background:#d62828;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(214,40,40,.35);margin-top:-22px">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      </span>
+      <span style="font-size:10.5px;font-weight:800;color:#d62828">{{ t.navPost }}</span>
+    </button>
+    <button onClick="{{ nav.alerts }}" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;padding:4px 0;position:relative">
+      <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="{{ navColor.alerts }}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+      <span style="position:absolute;top:2px;right:calc(50% - 16px);width:8px;height:8px;border-radius:50%;background:#d62828;border:1.5px solid #fff"></span>
+      <span style="font-size:10.5px;font-weight:700;color:{{ navColor.alerts }}">{{ t.navAlerts }}</span>
+    </button>
+    <button onClick="{{ nav.mine }}" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;padding:4px 0">
+      <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="{{ navColor.mine }}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
+      <span style="font-size:10.5px;font-weight:700;color:{{ navColor.mine }}">{{ t.navMine }}</span>
+    </button>
+  </div>
+  </sc-if>
+
+  <!-- ===================== REVIEW SHEET ===================== -->
+  <sc-if value="{{ showReview }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;background:rgba(28,25,23,.45);display:flex;align-items:flex-end;z-index:30;animation:fadeIn .2s ease">
+    <div style="background:#fff;width:100%;border-radius:22px 22px 0 0;padding:22px 18px 20px;animation:sheetUp .28s cubic-bezier(.2,.8,.2,1)">
+      <div style="width:42px;height:5px;border-radius:999px;background:#e7e5e4;margin:0 auto 18px"></div>
+      <div style="font-size:18px;font-weight:800;color:#1c1917;line-height:1.5">{{ t.reviewTitle }}</div>
+      <div style="font-size:12.5px;color:#a8a29e;font-weight:500;line-height:1.85;margin-top:6px">{{ t.reviewDesc }}</div>
+      <div style="background:#f5f4f2;border:1px solid #ebe9e5;border-radius:14px;padding:14px;margin-top:16px">
+        <div style="display:flex;gap:8px;margin-bottom:11px">
+          <span style="{{ reviewTypePill }}">{{ reviewTypeLabel }}</span>
+        </div>
+        <div style="font-size:15px;font-weight:700;color:#1c1917;line-height:1.55">{{ form.title }}</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:9px;color:#78716c;font-size:12.5px;font-weight:600;line-height:1.7">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#78716c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          {{ form.area }}
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:6px;color:#78716c;font-size:12.5px;font-weight:600">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#78716c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          {{ form.phone }}
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:18px">
+        <button onClick="{{ closeReview }}" style="flex:1;background:#fff;color:#1c1917;border:1.5px solid #e7e5e4;border-radius:12px;padding:14px;font-size:14px;font-weight:700;cursor:pointer">{{ t.editAgain }}</button>
+        <button onClick="{{ confirmPublish }}" style="flex:1.4;background:#d62828;color:#fff;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:800;cursor:pointer">{{ t.confirmPublish }}</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===================== TOAST ===================== -->
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;bottom:92px;left:50%;transform:translateX(-50%);width:calc(100% - 32px);background:#1c1917;color:#fff;border-radius:13px;padding:13px 15px;display:flex;align-items:center;gap:11px;z-index:40;animation:toastUp .3s ease;box-shadow:0 12px 30px rgba(0,0,0,.3)">
+    <span style="width:24px;height:24px;border-radius:50%;background:#16a34a;display:flex;align-items:center;justify-content:center;flex:none">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </span>
+    <span style="font-size:13px;font-weight:600;line-height:1.6">{{ toast }}</span>
+  </div>
+  </sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:430,&quot;height&quot;:860},&quot;startLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;th&quot;,&quot;en&quot;],&quot;default&quot;:&quot;th&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;ภาษา&quot;},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;feed&quot;,&quot;post&quot;,&quot;detail&quot;,&quot;alerts&quot;,&quot;mine&quot;,&quot;error&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;หน้าเริ่มต้น&quot;},&quot;startId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;p1&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;หน้าเริ่มต้น&quot;}}">
+class Component extends DCLogic {
+  state = {
+    lang: 'th',
+    screen: 'home',
+    activeId: null,
+    filter: 'all',
+    showReview: false,
+    toast: null,
+    photoAttached: false,
+    overrides: {},
+    form: { type:'item', title:'', area:'', when:'', desc:'', phone:'', name:'', age:'', clothing:'', consent:false },
+    errors: {},
+    userPosts: []
+  };
+
+  componentDidMount(){
+    if(this.props.startLang && (this.props.startLang==='en'||this.props.startLang==='th')){
+      this.setState({lang:this.props.startLang});
+    }
+    if(this.props.startScreen){
+      const sc = this.props.startScreen;
+      const patch = { screen: sc };
+      if(sc==='detail'){ patch.activeId = this.props.startId || 'p1'; }
+      this.setState(patch);
+    }
+    if(this.props.embedded){
+      if(this._root){ this._root.style.minHeight='100%'; this._root.style.height='100%'; }
+      if(this._frame){ this._frame.style.height='100%'; this._frame.style.maxHeight='none'; this._frame.style.width='100%'; this._frame.style.boxShadow='none'; }
+    }
+    try {
+      const r = localStorage.getItem('tamha_posts_v1');
+      if(r){
+        let arr = JSON.parse(r);
+        let changed = false;
+        arr = arr.map(p => {
+          if(!p.img){ changed = true; return {...p, img: this.pickSample((p.title && (p.title.th||p.title.en))||'', p.type)}; }
+          return p;
+        });
+        if(changed){ try { localStorage.setItem('tamha_posts_v1', JSON.stringify(arr)); } catch(e2){} }
+        this.setState({userPosts: arr});
+      }
+    } catch(e){}
+  }
+
+  get dict(){ return {
+    th:{
+      appName:'ตามหา', tagline:'ของหาย คนหาย ให้คนในย่านช่วยตามหา', locationLabel:'เขตสวนหลวง · กรุงเทพฯ',
+      searchPh:'ค้นหา เช่น กระเป๋า กุญแจ ชื่อคน...', chipAll:'ทั้งหมด', chipPerson:'คนหาย', chipItem:'ของหาย', chipFound:'พบแล้ว',
+      hotlineTitle:'เด็ก ผู้สูงอายุ หรือผู้ป่วยหาย', hotlineDesc:'โทรแจ้งสายด่วนคนหาย ตลอด 24 ชม.', callHotline:'โทร 1300',
+      nearbyTitle:'ประกาศล่าสุดใกล้คุณ', seeAll:'ดูทั้งหมด', ctaPost:'แจ้งของหาย / คนหาย', ctaPostSub:'โพสต์ฟรี คนในย่านเห็นทันที',
+      feedTitle:'ฟีดในพื้นที่', viewDetail:'ดูรายละเอียด', typeItem:'ของหาย', typePerson:'คนหาย',
+      statusLost:'กำลังตามหา', statusFound:'พบแล้ว ปลอดภัย',
+      lastSeen:'จุดที่เห็นล่าสุด', missingSince:'หายตั้งแต่', postedOn:'โพสต์เมื่อ', within:'ระยะจากคุณ', reward:'สินน้ำใจ',
+      call:'โทร', message:'ส่งข้อความ', share:'แชร์', sightingCta:'ฉันเห็น / มีเบาะแส',
+      markFound:'ทำเครื่องหมายว่าพบแล้ว', markedFound:'อัปเดตเป็น พบแล้ว ปลอดภัย เรียบร้อย',
+      mapLabel:'แผนที่จุดที่เห็นล่าสุด', safetyTitle:'เพื่อความปลอดภัย',
+      safety1:'นัดรับ-ส่งของในที่สาธารณะที่มีคนพลุกพล่าน', safety2:'ตรวจข้อมูลให้ตรงก่อนส่งคืน ไม่โอนเงินมัดจำให้ใครก่อนเจอตัว',
+      hotlineCardTitle:'พบเด็กหรือผู้สูงอายุพลัดหลง?', hotlineCardDesc:'โทรสายด่วนคนหาย 1300 เพื่อประสานเจ้าหน้าที่ทันที',
+      postTitle:'แจ้งของหาย / คนหาย', fType:'ประเภทประกาศ', photoLabel:'แนบรูป', photoHint:'รูปช่วยให้คนในย่านจำได้ง่ายขึ้น',
+      attach:'แตะเพื่อแนบรูป', attached:'แนบรูปแล้ว · แตะเพื่อเปลี่ยน',
+      fTitleL:'หัวข้อประกาศ', fTitlePhItem:'เช่น กระเป๋าสตางค์หนังสีน้ำตาล', fTitlePhPerson:'เช่น ตามหาคุณยาย อายุ 72 ปี',
+      personSection:'ข้อมูลผู้สูญหาย', fNameL:'ชื่อผู้สูญหาย', fNamePh:'เช่น สมจิตร', fAgeL:'อายุ', fAgePh:'72',
+      fClothesL:'ลักษณะ / เสื้อผ้า', fClothesPh:'เช่น เสื้อยืดลายดอกสีฟ้า ผ้าถุงน้ำตาล',
+      fAreaL:'จุด / ย่านที่หายล่าสุด', fAreaPh:'เช่น ตลาดนัดสวนหลวง ซอย 12',
+      fWhenL:'วันเวลาที่หาย', fWhenPh:'เช่น วันนี้ 09:30', fDescL:'รายละเอียดเพิ่มเติม', fDescPh:'ลักษณะเด่น สิ่งของภายใน หรือข้อมูลที่ช่วยระบุตัว',
+      fPhoneL:'เบอร์ติดต่อกลับ', fPhonePh:'08X-XXX-XXXX', consentText:'ยินยอมให้แสดงประกาศและเบอร์ติดต่อแก่คนในพื้นที่',
+      req:'กรุณากรอกข้อมูลนี้', phoneErr:'เบอร์โทรไม่ถูกต้อง', consentErr:'กรุณายอมรับก่อนเผยแพร่', publish:'ตรวจสอบและเผยแพร่',
+      reviewTitle:'ตรวจทานก่อนเผยแพร่', reviewDesc:'ประกาศจะแสดงให้คนในรัศมี 5 กม. เห็นทันที และส่งแจ้งเตือนให้ผู้ที่เปิดรับ',
+      confirmPublish:'ยืนยันเผยแพร่', editAgain:'กลับไปแก้ไข',
+      hotlineReminder:'หากเป็นเด็ก ผู้สูงอายุ หรือผู้ป่วย แนะนำโทร 1300 ควบคู่กับการโพสต์',
+      emptyTitle:'ยังไม่มีประกาศในย่านนี้', emptyDesc:'ลองขยายรัศมีการค้นหา หรือเป็นคนแรกที่แจ้งประกาศในพื้นที่', emptyCta:'แจ้งประกาศ',
+      mineTitle:'ประกาศของฉัน', mineEmptyTitle:'คุณยังไม่ได้แจ้งประกาศ', mineEmptyDesc:'เมื่อคุณโพสต์ของหายหรือคนหาย จะแสดงที่นี่ พร้อมสถานะและเบาะแส',
+      alertsTitle:'การแจ้งเตือน', errTitle:'ไม่พบประกาศนี้', errDesc:'ประกาศนี้อาจถูกปิด ลบ หรือลิงก์ไม่ถูกต้อง',
+      errRetry:'ลองอีกครั้ง', errHome:'กลับหน้าหลัก', offlineNote:'โหมดออฟไลน์ · ข้อมูลจะซิงก์เมื่อกลับมาออนไลน์',
+      navHome:'หน้าหลัก', navFeed:'ฟีด', navAlerts:'แจ้งเตือน', navMine:'ของฉัน', navPost:'โพสต์',
+      toastPublished:'เผยแพร่ประกาศแล้ว · คนในย่านสวนหลวงจะได้รับแจ้งเตือน', toastSighting:'ส่งเบาะแสให้ผู้โพสต์แล้ว ขอบคุณที่ช่วยเหลือ', toastShare:'คัดลอกลิงก์ประกาศแล้ว',
+      mineBadge:'ประกาศของคุณ', justNow:'เพิ่งนี้', minAgo:'นาทีที่แล้ว', hrAgo:'ชม. ที่แล้ว', kmAway:'กม. จากคุณ', inYourArea:'ในย่านของคุณ',
+      imgCredit:'ภาพตัวอย่าง · Unsplash'
+    },
+    en:{
+      appName:'Tamha', tagline:'Lost something or someone? Let your neighborhood help.', locationLabel:'Suan Luang · Bangkok',
+      searchPh:'Search e.g. bag, keys, a person...', chipAll:'All', chipPerson:'Missing person', chipItem:'Lost item', chipFound:'Found',
+      hotlineTitle:'Missing child, elderly or patient', hotlineDesc:'Call the missing-persons hotline, 24 hours', callHotline:'Call 1300',
+      nearbyTitle:'Latest near you', seeAll:'See all', ctaPost:'Report lost / missing', ctaPostSub:'Free to post · neighbors see it instantly',
+      feedTitle:'Local feed', viewDetail:'View details', typeItem:'Lost item', typePerson:'Missing person',
+      statusLost:'Still searching', statusFound:'Found safe',
+      lastSeen:'Last seen', missingSince:'Missing since', postedOn:'Posted', within:'Distance', reward:'Reward',
+      call:'Call', message:'Message', share:'Share', sightingCta:'I have a lead',
+      markFound:'Mark as found', markedFound:'Updated to found safe',
+      mapLabel:'Last-seen location', safetyTitle:'Stay safe',
+      safety1:'Meet in busy public places to hand things over.', safety2:'Verify details before returning. Never transfer a deposit before meeting in person.',
+      hotlineCardTitle:'Found a lost child or elderly person?', hotlineCardDesc:'Call the missing-persons hotline 1300 to reach officials right away.',
+      postTitle:'Report lost / missing', fType:'Post type', photoLabel:'Add photo', photoHint:'A photo helps neighbors recognize it faster.',
+      attach:'Tap to add a photo', attached:'Photo added · tap to change',
+      fTitleL:'Title', fTitlePhItem:'e.g. Brown leather wallet', fTitlePhPerson:'e.g. Looking for grandma, 72',
+      personSection:'Missing person details', fNameL:'Name', fNamePh:'e.g. Somjit', fAgeL:'Age', fAgePh:'72',
+      fClothesL:'Appearance / clothing', fClothesPh:'e.g. blue floral shirt, brown wrap skirt',
+      fAreaL:'Last-seen area', fAreaPh:'e.g. Suan Luang Market, Soi 12',
+      fWhenL:'Date & time lost', fWhenPh:'e.g. Today 09:30', fDescL:'More details', fDescPh:'Distinctive features, contents, or anything that helps identify it',
+      fPhoneL:'Callback number', fPhonePh:'08X-XXX-XXXX', consentText:'I agree to show this post and contact number to people nearby.',
+      req:'This field is required', phoneErr:'Invalid phone number', consentErr:'Please accept before publishing', publish:'Review & publish',
+      reviewTitle:'Review before publishing', reviewDesc:'Your post will appear to everyone within 5 km and notify those who opted in.',
+      confirmPublish:'Confirm & publish', editAgain:'Back to edit',
+      hotlineReminder:'If it is a child, elderly or patient, we recommend calling 1300 alongside posting.',
+      emptyTitle:'No posts in this area yet', emptyDesc:'Try widening the radius, or be the first to post in your neighborhood.', emptyCta:'Create a post',
+      mineTitle:'My posts', mineEmptyTitle:'You have no posts yet', mineEmptyDesc:'When you report a lost item or missing person, it shows here with status and leads.',
+      alertsTitle:'Notifications', errTitle:'Post not found', errDesc:'This post may have been closed, removed, or the link is invalid.',
+      errRetry:'Try again', errHome:'Back home', offlineNote:'Offline · data will sync when you are back online',
+      navHome:'Home', navFeed:'Feed', navAlerts:'Alerts', navMine:'Mine', navPost:'Post',
+      toastPublished:'Published · neighbors in Suan Luang will be notified', toastSighting:'Your lead was sent to the poster. Thank you for helping.', toastShare:'Post link copied',
+      mineBadge:'Your post', justNow:'just now', minAgo:'min ago', hrAgo:'h ago', kmAway:'km away', inYourArea:'in your area',
+      imgCredit:'Sample photo · Unsplash'
+    }
+  }; }
+
+  get seed(){ return [
+    { id:'p1', type:'person', status:'lost', dkm:1.2, tmin:20, phone:'081-234-5678', age:'72', reward:null,
+      img:'https://plus.unsplash.com/premium_photo-1664910378830-1e6cdd1188b2?fm=jpg&q=70&w=800&auto=format&fit=crop&crop=faces',
+      title:{th:'ตามหาคุณยายสมจิตร อายุ 72 ปี',en:'Looking for grandma Somjit, 72'},
+      area:{th:'ตลาดสวนหลวง เขตสวนหลวง',en:'Suan Luang Market, Suan Luang'},
+      lastSeen:{th:'ตลาดนัดสวนหลวง ซอย 12',en:'Suan Luang Market, Soi 12'},
+      desc:{th:'มีอาการหลงลืม สื่อสารไม่ค่อยได้ ออกจากบ้านมาตลาดแล้วยังไม่กลับ หากพบเห็นโปรดติดต่อด่วน',en:'Has memory loss and difficulty communicating. Left home for the market and has not returned. Please contact us urgently if seen.'},
+      clothing:{th:'เสื้อยืดลายดอกสีฟ้า ผ้าถุงสีน้ำตาล รองเท้าแตะสีดำ',en:'Blue floral t-shirt, brown wrap skirt, black sandals'},
+      missingSince:{th:'วันนี้ 09:30',en:'Today 09:30'}, name:{th:'สมจิตร พุ่มพวง',en:'Somjit Phumphuang'},
+      photoLabel:{th:'ภาพคุณยายสมจิตร',en:'Photo of grandma Somjit'} },
+    { id:'p2', type:'item', status:'lost', dkm:2.5, tmin:60, phone:'089-876-5432', age:'',
+      img:'https://images.unsplash.com/photo-1606503825008-909a67e63c3d?fm=jpg&q=70&w=800&auto=format&fit=crop',
+      reward:{th:'500 บาท',en:'500 THB'},
+      title:{th:'กระเป๋าสตางค์หนังสีน้ำตาล',en:'Brown leather wallet'},
+      area:{th:'BTS อ่อนนุช',en:'BTS On Nut'}, lastSeen:{th:'ทางออก 2 BTS อ่อนนุช',en:'Exit 2, BTS On Nut'},
+      desc:{th:'ภายในมีบัตรประชาชน บัตร ATM กรุงไทย และรูปครอบครัว ขอแค่บัตรคืนก็พอ เงินยกให้',en:'Contains ID card, Krungthai ATM card and a family photo. I only need the cards back, you can keep the cash.'},
+      clothing:null, missingSince:{th:'เมื่อวาน 18:00',en:'Yesterday 18:00'}, name:null,
+      photoLabel:{th:'กระเป๋าสตางค์หนังสีน้ำตาล',en:'Brown leather wallet'} },
+    { id:'p3', type:'person', status:'found', dkm:1.5, tmin:180, phone:'081-555-2020', age:'8', reward:null,
+      img:'https://images.unsplash.com/photo-1706307121034-81829ec35a0d?fm=jpg&q=70&w=800&auto=format&fit=crop&crop=faces',
+      title:{th:'น้องภูมิ อายุ 8 ขวบ — พบแล้ว ปลอดภัย',en:'Nong Phum, 8 — found safe'},
+      area:{th:'สวนเฉลิมพระเกียรติ',en:'Chaloem Phrakiat Park'}, lastSeen:{th:'หน้าสวนเฉลิมพระเกียรติ',en:'Chaloem Phrakiat Park entrance'},
+      desc:{th:'ขอบคุณทุกคนที่ช่วยแชร์ พบน้องที่ป้อมตำรวจแล้ว ปลอดภัยดีทุกอย่าง',en:'Thank you all for sharing. Found him at the police booth, safe and well.'},
+      clothing:null, missingSince:{th:'วันนี้ 14:00',en:'Today 14:00'}, name:{th:'ด.ช. ภูมิ',en:'Phum'},
+      photoLabel:{th:'ภาพน้องภูมิ',en:'Photo of Nong Phum'} },
+    { id:'p4', type:'item', status:'lost', dkm:4.1, tmin:300, phone:'086-555-1212', age:'', reward:null,
+      img:'https://images.unsplash.com/photo-1689757335928-9ae74832fab7?fm=jpg&q=70&w=800&auto=format&fit=crop',
+      title:{th:'กุญแจรถฮอนด้า พวงกุญแจหมีน้อย',en:'Honda car key, bear keychain'},
+      area:{th:'ตลาด อ.ต.ก.',en:'Or Tor Kor Market'}, lastSeen:{th:'ตลาด อ.ต.ก. โซนอาหารสด',en:'Or Tor Kor Market, fresh food zone'},
+      desc:{th:'พวงกุญแจหมีน้อยสีน้ำตาล มีกุญแจรถฮอนด้าและกุญแจบ้าน รบกวนช่วยดูให้หน่อยครับ',en:'Brown teddy bear keychain with a Honda car key and a house key. Please keep an eye out.'},
+      clothing:null, missingSince:{th:'วันนี้ 11:00',en:'Today 11:00'}, name:null,
+      photoLabel:{th:'กุญแจรถพวงหมีน้อย',en:'Car key with bear keychain'} },
+    { id:'p5', type:'person', status:'lost', dkm:3.0, tmin:120, phone:'084-777-8899', age:'68', reward:null,
+      img:'https://plus.unsplash.com/premium_photo-1663126328139-4d3acbdf0cbf?fm=jpg&q=70&w=800&auto=format&fit=crop&crop=faces',
+      title:{th:'ตามหาคุณตาประเสริฐ อายุ 68 (ผู้ป่วยอัลไซเมอร์)',en:'Looking for grandpa Prasert, 68 (Alzheimer\u2019s)'},
+      area:{th:'หมู่บ้านเสรี เขตประเวศ',en:'Seri Village, Prawet'}, lastSeen:{th:'ปากซอยเสรี 7',en:'Mouth of Soi Seri 7'},
+      desc:{th:'เป็นผู้ป่วยอัลไซเมอร์ ออกจากบ้านตั้งแต่เช้า อาจสับสนเส้นทาง โปรดอย่าให้เดินตามลำพัง',en:'An Alzheimer\u2019s patient. Walked out this morning and may be confused about directions. Please do not let him wander alone.'},
+      clothing:{th:'เสื้อเชิ้ตสีขาว กางเกงขายาวสีกรม รองเท้าแตะ',en:'White shirt, navy trousers, sandals'},
+      missingSince:{th:'วันนี้ 06:00',en:'Today 06:00'}, name:{th:'ประเสริฐ',en:'Prasert'},
+      photoLabel:{th:'ภาพคุณตาประเสริฐ',en:'Photo of grandpa Prasert'} },
+    { id:'p6', type:'item', status:'lost', dkm:0.8, tmin:360, phone:'092-345-6789', age:'', reward:null,
+      img:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?fm=jpg&q=70&w=800&auto=format&fit=crop',
+      title:{th:'iPhone สีดำ เคสใส',en:'Black iPhone, clear case'},
+      area:{th:'คาเฟ่ใกล้มหาวิทยาลัย',en:'Cafe near the university'}, lastSeen:{th:'คาเฟ่อเมซอน สาขามหาวิทยาลัย',en:'Cafe Amazon, university branch'},
+      desc:{th:'iPhone สีดำ เคสใส หน้าจอล็อกเป็นรูปสุนัข วางลืมไว้บนโต๊ะริมหน้าต่าง',en:'Black iPhone with a clear case, lock screen is a dog photo. Left on the table by the window.'},
+      clothing:null, missingSince:{th:'วันนี้ 08:30',en:'Today 08:30'}, name:null,
+      photoLabel:{th:'iPhone สีดำ',en:'Black iPhone'} }
+  ]; }
+
+  timeLabel(min, t){
+    if(min < 1) return t.justNow;
+    if(min < 60) return min + ' ' + t.minAgo;
+    return Math.round(min/60) + ' ' + t.hrAgo;
+  }
+  distLabel(km, t){ if(km <= 0) return t.inYourArea; return km.toFixed(1) + ' ' + t.kmAway; }
+
+  allRaw(){
+    const st = this.state;
+    const seed = this.seed.map(p => ({...p, status: st.overrides[p.id] || p.status}));
+    const user = (st.userPosts||[]).map(p => ({...p, status: st.overrides[p.id] || p.status}));
+    return [...user, ...seed];
+  }
+
+  mapView(p, t){
+    const isFound = p.status === 'found';
+    const isPerson = p.type === 'person';
+    const statusPill = 'display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font-size:11.5px;font-weight:700;background:'+(isFound?'#f0fdf4':'#fef2f2')+';color:'+(isFound?'#15803d':'#b91c1c');
+    const typePill = 'display:inline-flex;align-items:center;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700;background:'+(isPerson?'#fff7ed':'#f1f5f9')+';color:'+(isPerson?'#9a3412':'#475569');
+    const hasImg = !!p.img;
+    const thumbStyle = 'position:relative;overflow:hidden;width:64px;height:64px;flex:none;border-radius:11px;background:repeating-linear-gradient(45deg,#eceae6 0 9px,#f3f1ee 9px 18px);display:flex;align-items:center;justify-content:center';
+    const bannerStyle = 'position:relative;overflow:hidden;height:150px;background:repeating-linear-gradient(45deg,#eceae6 0 14px,#f3f1ee 14px 28px);display:flex;align-items:center;justify-content:center';
+    const imgEl = hasImg ? React.createElement('img', {
+      src: p.img, alt: p.photoLabel[this.state.lang],
+      onError: (e)=>{ if(e && e.target){ e.target.style.display='none'; } },
+      style: { position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover' }
+    }) : null;
+    return {
+      id:p.id, mine: !!p.mine, isPerson, isItem: !isPerson, hasImg, img: p.img || '', imgEl,
+      title: p.title[this.state.lang], photoLabel: p.photoLabel[this.state.lang],
+      typeLabel: isPerson ? t.typePerson : t.typeItem,
+      statusLabel: isFound ? t.statusFound : t.statusLost,
+      statusPill, typePill, thumbStyle, bannerStyle,
+      timeLabel: this.timeLabel(p.tmin, t),
+      metaLine: p.area[this.state.lang] + ' · ' + this.distLabel(p.dkm, t),
+      open: () => this.openDetail(p.id)
+    };
+  }
+
+  openDetail(id){ this.setState({screen:'detail', activeId:id}); }
+  goBack(){ this.setState({screen:'feed', activeId:null}); }
+
+  toastMsg(m){ this.setState({toast:m}); clearTimeout(this._tt); this._tt = setTimeout(()=>this.setState({toast:null}), 3400); }
+
+  toggleLang(){ this.setState(s => ({lang: s.lang==='th'?'en':'th'})); }
+
+  updateForm(k, v){ this.setState(s => ({form:{...s.form, [k]:v}, errors:{...s.errors, [k]:undefined}})); }
+
+  onPublish(){
+    const f = this.state.form; const t = this.dict[this.state.lang]; const e = {};
+    if(!f.title.trim()) e.title = t.req;
+    if(!f.area.trim()) e.area = t.req;
+    const digits = (f.phone||'').replace(/\D/g,'');
+    if(!digits) e.phone = t.req; else if(digits.length < 6) e.phone = t.phoneErr;
+    if(f.type==='person' && !f.name.trim()) e.name = t.req;
+    if(!f.consent) e.consent = t.consentErr;
+    if(Object.keys(e).length){ this.setState({errors:e}); }
+    else { this.setState({errors:{}, showReview:true}); }
+  }
+
+  pickSample(title, type){
+    const S = {
+      backpack:'https://images.unsplash.com/photo-1505308144658-03c69861061a?fm=jpg&q=70&w=800&auto=format&fit=crop',
+      wallet:'https://images.unsplash.com/photo-1606503825008-909a67e63c3d?fm=jpg&q=70&w=800&auto=format&fit=crop',
+      keys:'https://images.unsplash.com/photo-1689757335928-9ae74832fab7?fm=jpg&q=70&w=800&auto=format&fit=crop',
+      phone:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?fm=jpg&q=70&w=800&auto=format&fit=crop',
+      child:'https://images.unsplash.com/photo-1706307121034-81829ec35a0d?fm=jpg&q=70&w=800&auto=format&fit=crop&crop=faces',
+      elder:'https://plus.unsplash.com/premium_photo-1664910378830-1e6cdd1188b2?fm=jpg&q=70&w=800&auto=format&fit=crop&crop=faces'
+    };
+    const s = (title||'').toLowerCase();
+    const has = (arr)=>arr.some(k=>s.indexOf(k)>=0);
+    if(type==='person'){
+      if(has(['เด็ก','น้อง','หลาน','child','kid','boy','girl','ด.ช','ด.ญ'])) return S.child;
+      return S.elder;
+    }
+    if(has(['เป้','สะพาย','backpack','กระเป๋าเป้'])) return S.backpack;
+    if(has(['สตางค์','wallet','กระเป๋าเงิน'])) return S.wallet;
+    if(has(['กุญแจ','key'])) return S.keys;
+    if(has(['โทรศัพท์','มือถือ','phone','iphone','samsung'])) return S.phone;
+    return S.backpack;
+  }
+
+  confirmPublish(){
+    const f = this.state.form;
+    const id = 'u' + Date.now();
+    const post = {
+      id, mine:true, type:f.type, status:'lost', dkm:0, tmin:0, phone:f.phone, age:f.age,
+      reward: null, img: this.pickSample(f.title, f.type),
+      title:{th:f.title, en:f.title}, area:{th:f.area||'-', en:f.area||'-'},
+      lastSeen:{th:f.area||'-', en:f.area||'-'}, desc:{th:f.desc||'-', en:f.desc||'-'},
+      clothing: f.clothing ? {th:f.clothing, en:f.clothing} : null,
+      missingSince:{th:f.when||'-', en:f.when||'-'},
+      name: f.name ? {th:f.name, en:f.name} : null,
+      photoLabel:{th:f.title, en:f.title}
+    };
+    const userPosts = [post, ...(this.state.userPosts||[])];
+    try { localStorage.setItem('tamha_posts_v1', JSON.stringify(userPosts)); } catch(err){}
+    const t = this.dict[this.state.lang];
+    this.setState({
+      userPosts, showReview:false, screen:'detail', activeId:id, photoAttached:false,
+      form:{ type:'item', title:'', area:'', when:'', desc:'', phone:'', name:'', age:'', clothing:'', consent:false }
+    });
+    this.toastMsg(t.toastPublished);
+  }
+
+  renderVals(){
+    const s = this.state; const t = this.dict[s.lang]; const P = '#d62828'; const MUT = '#a8a29e';
+    const all = this.allRaw();
+
+    // filter feed
+    let filtered = all;
+    if(s.filter === 'person') filtered = all.filter(p => p.type==='person' && p.status!=='found');
+    else if(s.filter === 'item') filtered = all.filter(p => p.type==='item' && p.status!=='found');
+    else if(s.filter === 'found') filtered = all.filter(p => p.status==='found');
+    const feed = filtered.map(p => this.mapView(p, t));
+    const nearby = all.slice(0,3).map(p => this.mapView(p, t));
+    const mineRaw = all.filter(p => p.mine);
+    const mine = mineRaw.map(p => this.mapView(p, t));
+
+    const feedCountLabel = s.lang==='th'
+      ? ('พบ ' + feed.length + ' ประกาศ ในรัศมี 5 กม.')
+      : (feed.length + ' posts within 5 km');
+
+    // active detail
+    let activePost = null;
+    const ap = all.find(p => p.id === s.activeId);
+    if(ap){
+      const v = this.mapView(ap, t);
+      const isFound = ap.status === 'found';
+      activePost = {
+        ...v,
+        isPerson: ap.type==='person',
+        lastSeen: ap.lastSeen[s.lang], desc: ap.desc[s.lang],
+        clothing: ap.clothing ? ap.clothing[s.lang] : null,
+        reward: ap.reward ? ap.reward[s.lang] : null,
+        distLabel: this.distLabel(ap.dkm, t),
+        timeFieldLabel: ap.type==='person' ? t.missingSince : t.lastSeen,
+        timeFieldValue: ap.type==='person' ? ap.missingSince[s.lang] : (ap.missingSince ? ap.missingSince[s.lang] : '-'),
+        telHref: 'tel:' + (ap.phone||'').replace(/[^0-9]/g,''),
+        canMarkFound: !isFound
+      };
+    }
+
+    // chip styles
+    const chipOn = 'flex:none;border:1.5px solid #d62828;background:#d62828;color:#fff;font-size:13px;font-weight:700;padding:8px 15px;border-radius:999px;cursor:pointer;white-space:nowrap';
+    const chipOff = 'flex:none;border:1.5px solid #e7e5e4;background:#fff;color:#57534e;font-size:13px;font-weight:600;padding:8px 15px;border-radius:999px;cursor:pointer;white-space:nowrap';
+    const chipStyles = {
+      all: s.filter==='all'?chipOn:chipOff, person: s.filter==='person'?chipOn:chipOff,
+      item: s.filter==='item'?chipOn:chipOff, found: s.filter==='found'?chipOn:chipOff
+    };
+
+    // type segmented
+    const segOn = 'flex:1;display:flex;align-items:center;justify-content:center;gap:7px;border:1.5px solid #1c1917;background:#1c1917;color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:13px;cursor:pointer';
+    const segOff = 'flex:1;display:flex;align-items:center;justify-content:center;gap:7px;border:1.5px solid #e7e5e4;background:#fff;color:#78716c;font-size:14px;font-weight:600;padding:13px;border-radius:13px;cursor:pointer';
+    const typeItemStyle = s.form.type==='item'?segOn:segOff;
+    const typePersonStyle = s.form.type==='person'?segOn:segOff;
+
+    const inpBase = 'background:#fff;border:1.5px solid #e7e5e4;border-radius:12px;padding:13px;font-size:14px;color:#1c1917;width:100%;outline:none';
+    const inpErr = 'background:#fff;border:1.5px solid #d62828;border-radius:12px;padding:13px;font-size:14px;color:#1c1917;width:100%;outline:none';
+    const nameBase = 'background:#fff;border:1.5px solid #fed7aa;border-radius:11px;padding:12px;font-size:14px;color:#1c1917;width:100%;outline:none';
+    const nameErr = 'background:#fff;border:1.5px solid #d62828;border-radius:11px;padding:12px;font-size:14px;color:#1c1917;width:100%;outline:none';
+    const inpStyle = {
+      title: s.errors.title?inpErr:inpBase, area: s.errors.area?inpErr:inpBase, phone: s.errors.phone?inpErr:inpBase,
+      name: s.errors.name?nameErr:nameBase
+    };
+
+    const consentBoxStyle = 'width:24px;height:24px;border-radius:7px;flex:none;display:flex;align-items:center;justify-content:center;border:2px solid '+(s.form.consent?'#d62828':'#cbc5bd')+';background:'+(s.form.consent?'#d62828':'#fff');
+
+    const photoZoneStyle = 'width:100%;border:1.5px dashed '+(s.photoAttached?'#16a34a':'#d6d1c9')+';background:'+(s.photoAttached?'#f0fdf4':'#fafaf9')+';border-radius:14px;padding:22px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer';
+    const photoIconColor = s.photoAttached ? '#16a34a' : '#a8a29e';
+    const photoZoneLabel = s.photoAttached ? t.attached : t.attach;
+
+    const titlePh = s.form.type==='person' ? t.fTitlePhPerson : t.fTitlePhItem;
+
+    const reviewTypeLabel = s.form.type==='person' ? t.typePerson : t.typeItem;
+    const reviewTypePill = s.form.type==='person'
+      ? 'display:inline-flex;align-items:center;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700;background:#fff7ed;color:#9a3412'
+      : 'display:inline-flex;align-items:center;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700;background:#f1f5f9;color:#475569';
+
+    // alerts
+    const ico = (k) => {
+      const map = {
+        sighting:{c:'#1c1917',bg:'#f5f4f2',p:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>'},
+        found:{c:'#15803d',bg:'#f0fdf4',p:'<path d="M20 6 9 17l-5-5"/>'},
+        new:{c:'#d62828',bg:'#fef2f2',p:'<circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/>'},
+        closed:{c:'#a8a29e',bg:'#f5f4f2',p:'<circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/>'}
+      };
+      const m = map[k];
+      const wrap = 'width:40px;height:40px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;background:'+m.bg;
+      const el = React.createElement('span',{dangerouslySetInnerHTML:{__html:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="'+m.c+'" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'+m.p+'</svg>'}});
+      return {wrap, el};
+    };
+    const alertData = [
+      {kind:'sighting', th:'มีคนแจ้งเบาะแส "กระเป๋าสตางค์หนังสีน้ำตาล" ใกล้ทางออก 3', en:'Someone reported a sighting of "Brown leather wallet" near Exit 3', tth:'5 นาทีที่แล้ว', ten:'5 min ago', go:()=>this.openDetail('p2')},
+      {kind:'found', th:'ประกาศ "น้องภูมิ" อัปเดตเป็น พบแล้ว ปลอดภัย', en:'"Nong Phum" was updated to found safe', tth:'3 ชม. ที่แล้ว', ten:'3h ago', go:()=>this.openDetail('p3')},
+      {kind:'new', th:'ประกาศคนหายใหม่ในย่านของคุณ: คุณตาประเสริฐ', en:'New missing-person post in your area: grandpa Prasert', tth:'2 ชม. ที่แล้ว', ten:'2h ago', go:()=>this.openDetail('p5')},
+      {kind:'closed', th:'ประกาศที่คุณติดตามถูกปิดหรือถูกลบแล้ว', en:'A post you followed was closed or removed', tth:'1 วันที่แล้ว', ten:'1d ago', go:()=>this.setState({screen:'error'})}
+    ];
+    const alerts = alertData.map(a => { const i = ico(a.kind); return {
+      text: s.lang==='th'?a.th:a.en, time: s.lang==='th'?a.tth:a.ten, iconWrap:i.wrap, iconEl:i.el, open:a.go
+    }; });
+
+    const navColor = {
+      home: s.screen==='home'?P:MUT, feed: s.screen==='feed'?P:MUT,
+      alerts: s.screen==='alerts'?P:MUT, mine: s.screen==='mine'?P:MUT
+    };
+    const showNav = ['home','feed','alerts','mine'].indexOf(s.screen) >= 0;
+
+    return {
+      t, langBtnLabel: s.lang==='th'?'EN':'ไทย', toggleLang: ()=>this.toggleLang(),
+      rootRef: (el)=>{ this._root = el; }, frameRef: (el)=>{ this._frame = el; },
+      isHome: s.screen==='home', isFeed: s.screen==='feed', isPost: s.screen==='post',
+      isDetail: s.screen==='detail', isAlerts: s.screen==='alerts', isMine: s.screen==='mine', isError: s.screen==='error',
+      showNav, showReview: s.showReview, toast: s.toast,
+      nav: {
+        home:()=>this.setState({screen:'home'}), feed:()=>this.setState({screen:'feed'}),
+        post:()=>this.setState({screen:'post'}), alerts:()=>this.setState({screen:'alerts'}), mine:()=>this.setState({screen:'mine'})
+      },
+      navColor,
+      chip: {
+        all:()=>this.setState({filter:'all'}), person:()=>this.setState({filter:'person'}),
+        item:()=>this.setState({filter:'item'}), found:()=>this.setState({filter:'found'})
+      },
+      chipStyles,
+      feed, nearby, mine, feedCountLabel, feedEmpty: feed.length===0, mineEmpty: mine.length===0,
+      activePost, goBack: ()=>this.goBack(),
+      share: ()=>{ this.toastMsg(t.toastShare); },
+      sighting: ()=>{ this.toastMsg(t.toastSighting); },
+      markFound: ()=>{ const id = s.activeId; this.setState(st=>({overrides:{...st.overrides,[id]:'found'}})); this.toastMsg(t.markedFound); },
+      alerts,
+      // form
+      form: s.form, errors: s.errors, isPerson: s.form.type==='person',
+      titlePh, typeItemStyle, typePersonStyle, inpStyle, consentBoxStyle,
+      photoZoneStyle, photoIconColor, photoZoneLabel,
+      setTypeItem: ()=>this.setState(st=>({form:{...st.form,type:'item'},errors:{...st.errors,name:undefined}})),
+      setTypePerson: ()=>this.setState(st=>({form:{...st.form,type:'person'}})),
+      attachPhoto: ()=>this.setState(st=>({photoAttached:!st.photoAttached})),
+      toggleConsent: ()=>this.updateForm('consent', !s.form.consent),
+      set: {
+        title:(e)=>this.updateForm('title', e.target.value), area:(e)=>this.updateForm('area', e.target.value),
+        when:(e)=>this.updateForm('when', e.target.value), desc:(e)=>this.updateForm('desc', e.target.value),
+        phone:(e)=>this.updateForm('phone', e.target.value), name:(e)=>this.updateForm('name', e.target.value),
+        age:(e)=>this.updateForm('age', e.target.value), clothing:(e)=>this.updateForm('clothing', e.target.value)
+      },
+      onPublish: ()=>this.onPublish(), confirmPublish: ()=>this.confirmPublish(),
+      closeReview: ()=>this.setState({showReview:false}),
+      reviewTypeLabel, reviewTypePill
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#e7e5e1;font-family:'Inter','Noto Sans Thai',sans-serif;-webkit-font-smoothing:antialiased}
+  .board{overflow-x:auto;overflow-y:hidden}
+</style>
+</helmet>
+
+<div style="width:100%;padding:44px 0 48px">
+
+  <!-- header -->
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:10px;max-width:1200px;padding:0 56px">
+    <div>
+      <div style="display:flex;align-items:center;gap:11px;margin-bottom:14px">
+        <div style="width:44px;height:44px;border-radius:12px;background:#d62828;display:flex;align-items:center;justify-content:center;flex:none">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        </div>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:#d62828;letter-spacing:.06em;text-transform:uppercase">ตามหา · Tamha</div>
+          <div style="font-size:13px;color:#78716c;font-weight:600">Screen map · แผนผังหน้าจอทั้งหมด</div>
+        </div>
+      </div>
+      <div style="font-size:40px;font-weight:800;color:#1c1917;letter-spacing:-.02em;line-height:1.3">แจ้งของหาย / คนหายในพื้นที่</div>
+      <div style="font-size:16px;color:#57534e;font-weight:500;line-height:1.7;margin-top:8px;max-width:760px">ทุกหน้าจอของแอปกางให้เห็นพร้อมกันในที่เดียว — คลิกภายในเฟรมเพื่อลองกด แต่ละเฟรมคือแอปจริงตัวเดียวกับเวอร์ชัน single-flow</div>
+    </div>
+    <div style="background:#fff;border:1px solid #dcd9d4;border-radius:14px;padding:14px 18px;min-width:230px">
+      <div style="font-size:12px;font-weight:700;color:#a8a29e;text-transform:uppercase;letter-spacing:.05em;margin-bottom:9px">Flow หลัก</div>
+      <div style="font-size:13.5px;color:#44403c;font-weight:600;line-height:1.85">โพสต์ประกาศ → คนในย่านเห็น → ส่งเบาะแส / ติดต่อกลับ → พบแล้ว ปลอดภัย</div>
+    </div>
+  </div>
+
+  <!-- single filmstrip: all 7 screens in one row -->
+  <div style="display:flex;align-items:center;gap:8px;margin:26px 0 16px;padding:0 56px">
+    <span style="font-size:13px;font-weight:800;color:#fff;background:#1c1917;padding:5px 13px;border-radius:999px;letter-spacing:.04em">7 หน้าจอ</span>
+    <span style="font-size:13.5px;color:#78716c;font-weight:600">01–03 Flow หลัก · 04–07 หน้าเสริม + state · เลื่อนแนวนอนเพื่อดูครบ</span>
+    <div style="flex:1;height:1px;background:#d1cec8"></div>
+  </div>
+  <div class="board" style="display:flex;gap:36px;align-items:flex-start;padding:0 56px 12px">
+
+    <div style="flex:none">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+        <span style="font-family:'Inter';font-size:13px;font-weight:800;color:#fff;background:#d62828;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center">01</span>
+        <div>
+          <div style="font-size:16px;font-weight:800;color:#1c1917;line-height:1.4">หน้าหลัก / ค้นหา</div>
+          <div style="font-size:12.5px;color:#a8a29e;font-weight:600">Home · สายด่วน 1300 + ประกาศใกล้ตัว</div>
+        </div>
+      </div>
+      <div style="width:390px;height:812px;border-radius:34px;overflow:hidden;border:1px solid #d1cec8;background:#fff;box-shadow:0 20px 50px rgba(0,0,0,.14)">
+        <dc-import name="Tamha" embedded="true" start-screen="home" start-lang="th" hint-size="390px,812px" style="display:block;width:390px;height:812px"></dc-import>
+      </div>
+    </div>
+
+    <div style="flex:none">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+        <span style="font-family:'Inter';font-size:13px;font-weight:800;color:#fff;background:#d62828;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center">02</span>
+        <div>
+          <div style="font-size:16px;font-weight:800;color:#1c1917;line-height:1.4">ฟีดในพื้นที่</div>
+          <div style="font-size:12.5px;color:#a8a29e;font-weight:600">Feed · กรอง คนหาย / ของหาย / พบแล้ว</div>
+        </div>
+      </div>
+      <div style="width:390px;height:812px;border-radius:34px;overflow:hidden;border:1px solid #d1cec8;background:#fff;box-shadow:0 20px 50px rgba(0,0,0,.14)">
+        <dc-import name="Tamha" embedded="true" start-screen="feed" start-lang="th" hint-size="390px,812px" style="display:block;width:390px;height:812px"></dc-import>
+      </div>
+    </div>
+
+    <div style="flex:none">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+        <span style="font-family:'Inter';font-size:13px;font-weight:800;color:#fff;background:#d62828;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center">03</span>
+        <div>
+          <div style="font-size:16px;font-weight:800;color:#1c1917;line-height:1.4">รายละเอียด + ติดต่อ</div>
+          <div style="font-size:12.5px;color:#a8a29e;font-weight:600">Detail · แผนที่ · ส่งเบาะแส · โทร 1300</div>
+        </div>
+      </div>
+      <div style="width:390px;height:812px;border-radius:34px;overflow:hidden;border:1px solid #d1cec8;background:#fff;box-shadow:0 20px 50px rgba(0,0,0,.14)">
+        <dc-import name="Tamha" embedded="true" start-screen="detail" start-id="p1" start-lang="th" hint-size="390px,812px" style="display:block;width:390px;height:812px"></dc-import>
+      </div>
+    </div>
+
+    <div style="flex:none">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+        <span style="font-family:'Inter';font-size:13px;font-weight:800;color:#fff;background:#d62828;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center">04</span>
+        <div>
+          <div style="font-size:16px;font-weight:800;color:#1c1917;line-height:1.4">แจ้งประกาศ</div>
+          <div style="font-size:12.5px;color:#a8a29e;font-weight:600">Post · ของหาย / คนหาย + แนบรูป</div>
+        </div>
+      </div>
+      <div style="width:390px;height:812px;border-radius:34px;overflow:hidden;border:1px solid #d1cec8;background:#fff;box-shadow:0 20px 50px rgba(0,0,0,.14)">
+        <dc-import name="Tamha" embedded="true" start-screen="post" start-lang="th" hint-size="390px,812px" style="display:block;width:390px;height:812px"></dc-import>
+      </div>
+    </div>
+
+    <div style="flex:none">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+        <span style="font-family:'Inter';font-size:13px;font-weight:800;color:#fff;background:#57534e;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center">05</span>
+        <div>
+          <div style="font-size:16px;font-weight:800;color:#1c1917;line-height:1.4">การแจ้งเตือน</div>
+          <div style="font-size:12.5px;color:#a8a29e;font-weight:600">Alerts · เบาะแส · อัปเดตพบแล้ว</div>
+        </div>
+      </div>
+      <div style="width:390px;height:812px;border-radius:34px;overflow:hidden;border:1px solid #d1cec8;background:#fff;box-shadow:0 20px 50px rgba(0,0,0,.14)">
+        <dc-import name="Tamha" embedded="true" start-screen="alerts" start-lang="th" hint-size="390px,812px" style="display:block;width:390px;height:812px"></dc-import>
+      </div>
+    </div>
+
+    <div style="flex:none">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+        <span style="font-family:'Inter';font-size:13px;font-weight:800;color:#fff;background:#57534e;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center">06</span>
+        <div>
+          <div style="font-size:16px;font-weight:800;color:#1c1917;line-height:1.4">ประกาศของฉัน · สถานะว่าง</div>
+          <div style="font-size:12.5px;color:#a8a29e;font-weight:600">Empty state · ยังไม่มีประกาศ</div>
+        </div>
+      </div>
+      <div style="width:390px;height:812px;border-radius:34px;overflow:hidden;border:1px solid #d1cec8;background:#fff;box-shadow:0 20px 50px rgba(0,0,0,.14)">
+        <dc-import name="Tamha" embedded="true" start-screen="mine" start-lang="th" hint-size="390px,812px" style="display:block;width:390px;height:812px"></dc-import>
+      </div>
+    </div>
+
+    <div style="flex:none">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+        <span style="font-family:'Inter';font-size:13px;font-weight:800;color:#fff;background:#57534e;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center">07</span>
+        <div>
+          <div style="font-size:16px;font-weight:800;color:#1c1917;line-height:1.4">ข้อผิดพลาด / 404</div>
+          <div style="font-size:12.5px;color:#a8a29e;font-weight:600">Error · ไม่พบประกาศ + โหมดออฟไลน์</div>
+        </div>
+      </div>
+      <div style="width:390px;height:812px;border-radius:34px;overflow:hidden;border:1px solid #d1cec8;background:#fff;box-shadow:0 20px 50px rgba(0,0,0,.14)">
+        <dc-import name="Tamha" embedded="true" start-screen="error" start-lang="th" hint-size="390px,812px" style="display:block;width:390px;height:812px"></dc-import>
+      </div>
+    </div>
+
+    <div style="flex:none;width:340px;padding-top:41px">
+      <div style="background:#fff;border:1px solid #dcd9d4;border-radius:16px;padding:22px">
+        <div style="font-size:14px;font-weight:800;color:#1c1917;margin-bottom:16px">รายละเอียดชุดหน้าจอ</div>
+        <div style="display:flex;gap:10px;padding:11px 0;border-bottom:1px solid #f0eeea">
+          <span style="width:9px;height:9px;border-radius:50%;background:#d62828;flex:none;margin-top:6px"></span>
+          <div style="font-size:13px;color:#44403c;font-weight:600;line-height:1.8">3 หน้าหลัก (01–03) คือหัวใจ: โพสต์ → ฟีด → รายละเอียด</div>
+        </div>
+        <div style="display:flex;gap:10px;padding:11px 0;border-bottom:1px solid #f0eeea">
+          <span style="width:9px;height:9px;border-radius:50%;background:#d62828;flex:none;margin-top:6px"></span>
+          <div style="font-size:13px;color:#44403c;font-weight:600;line-height:1.8">การ์ดของหายใช้ภาพจริง (Unsplash) การ์ดคนหายใช้ภาพผู้สูญหาย</div>
+        </div>
+        <div style="display:flex;gap:10px;padding:11px 0;border-bottom:1px solid #f0eeea">
+          <span style="width:9px;height:9px;border-radius:50%;background:#16a34a;flex:none;margin-top:6px"></span>
+          <div style="font-size:13px;color:#44403c;font-weight:600;line-height:1.8">สีเขียว = พบแล้ว ปลอดภัย · แดง/ส้ม = กำลังตามหา</div>
+        </div>
+        <div style="display:flex;gap:10px;padding:11px 0">
+          <span style="width:9px;height:9px;border-radius:50%;background:#1c1917;flex:none;margin-top:6px"></span>
+          <div style="font-size:13px;color:#44403c;font-weight:600;line-height:1.8">รองรับ ไทย / EN — กดปุ่มภาษามุมขวาบนในทุกเฟรม</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>
