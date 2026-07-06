@@ -1,5 +1,7 @@
 # Tamha
 
+[ภาษาไทย](README.th.md)
+
 Tamha is a mobile first Design Component prototype for local lost item and missing person alerts. It lets a user draft a report, attach a simulated photo state, browse nearby sample posts, open a detail page, send a lead, call a contact number, and mark a post as found.
 
 The Thai name means "to search for". The internal idea key was `แจ้งของหาย/คนหายในพื้นที่`.
