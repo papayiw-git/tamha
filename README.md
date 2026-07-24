@@ -41,7 +41,7 @@ This is a prototype, not a live emergency or official missing persons system. Th
 
 | App Home | Design Overview |
 | --- | --- |
-| ![Tamha app home](screenshots/tamha-app-home.png) | ![Tamha design overview](screenshots/tamha-design-overview.png) |
+| ![Tamha app home](screenshots/tamha-home-en.png) | ![Tamha design overview](screenshots/tamha-design-overview.png) |
 
 ## Running Locally
 
